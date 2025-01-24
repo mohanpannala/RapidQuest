@@ -30,13 +30,13 @@ class Register extends Component {
         }
 
         const user = { username, email, password, conformPassword: confirmPassword };
-
-
+       
         try {
             const response = await fetch('https://rapid-quest-api.vercel.app/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(user),
+                credentials: 'include',
             });
 
             const data = await response.json();
