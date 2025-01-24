@@ -23,6 +23,7 @@ app.use(express.json());
 
 app.options('*', cors());  // Handle OPTIONS requests
 
+console.log(process.env.MONGO_URI);
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
