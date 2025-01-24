@@ -16,8 +16,7 @@ class Login extends Component {
     
         const username = event.target.username.value;
         const password = event.target.password.value;
-    
-        // Basic client-side validation
+        
         if (!username || !password) {
             alert('Please fill in both fields.');
             return;

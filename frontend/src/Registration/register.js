@@ -19,9 +19,6 @@ class Register extends Component {
         const password = event.target.password.value.trim();
         const confirmPassword = event.target.conformpassword.value.trim();
 
-        //console.log(password)
-        //console.log(confirmPassword)
-
         if (!username || !email || !password || !confirmPassword) {
             alert('Please fill in all the fields.');
             return;

@@ -3,6 +3,7 @@ import Home from './home';
 import Register from './Registration/register';
 import Login from './Login/login';
 import './App.css';
+import EmailBuilder from './EmailBuilder/EmailBuilder';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Route exact path='/' component={Home}/>
       <Route exact path='/register' component={Register}/>
       <Route exact path='/login' component={Login}/>
+      <Route exact path="/email-builder" component={EmailBuilder} />
     </Switch>
   );
 }
