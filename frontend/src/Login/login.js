@@ -25,7 +25,7 @@ class Login extends Component {
         const credentials = { username, password };
 
         try {
-            const response = await fetch('https://rapid-quest-three.vercel.app/login', {
+            const response = await fetch('https://rapid-quest-api.vercel.app/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(credentials),
