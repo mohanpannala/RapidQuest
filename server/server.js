@@ -11,7 +11,14 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors({ origin: '*', methods: ['POST', 'GET', 'PUT', 'DELETE'], credentials: true }));
+//app.use(cors({ origin: '*', methods: ['POST', 'GET', 'PUT', 'DELETE'], credentials: true }));
+
+app.use(cors({
+    origin: 'https://rapid-quest-rho.vercel.app', 
+    methods: ['POST', 'GET', 'PUT', 'DELETE'],
+    credentials: true, 
+}));
+
 app.use(express.json());
 
 // MongoDB Connection
