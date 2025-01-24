@@ -5,25 +5,30 @@ const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
+const path = require('path');
 
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors({ origin: '*', methods: ['POST', 'GET'], credentials: true }));
+app.use(cors({ origin: '*', methods: ['POST', 'GET', 'PUT', 'DELETE'], credentials: true }));
 app.use(express.json());
 
-// MongoDB connection
+// MongoDB Connection
 let isConnected;
 
 const connectDB = async () => {
     if (isConnected) return;
     try {
-        await mongoose.connect(process.env.MONGO_URI);
+        await mongoose.connect(process.env.MONGO_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
         isConnected = mongoose.connection.readyState;
         console.log("MongoDB connected successfully");
     } catch (error) {
         console.error("Error connecting to MongoDB", error);
+        process.exit(1); // Exit process if unable to connect
     }
 };
 connectDB();
@@ -75,14 +80,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/favicon.ico', (req, res) => {
-    res.status(204);
+    res.status(204).send();
 });
 
 // Registration route
 app.post('/register', async (req, res) => {
-    const { username, email, password, conformPassword } = req.body;
+    const { username, email, password, confirmPassword } = req.body;
 
-    if (password !== conformPassword) {
+    if (password !== confirmPassword) {
         return res.status(400).json({ message: 'Passwords do not match' });
     }
 
@@ -129,12 +134,15 @@ app.post('/login', async (req, res) => {
 });
 
 // Upload image route
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({
+    dest: '/tmp/uploads', // Use temporary writable directory
+});
+
 app.post('/uploadImage', authenticate, upload.single('image'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ message: 'No image uploaded' });
     }
-    const imageUrl = `/uploads/${req.file.filename}`;
+    const imageUrl = `/tmp/uploads/${req.file.filename}`;
     res.json({ imageUrl });
 });
 
