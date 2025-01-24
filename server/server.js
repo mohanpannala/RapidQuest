@@ -12,12 +12,12 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-//app.use(cors({ origin: '*', method: ['POST', 'GET'], credentials: true }));
-app.use(cors({
-  origin: ['https://rapid-quest-rho.vercel.app'],  // Allow only this origin
-  methods: ['POST', 'GET'],
-  credentials: true,  // If you need cookies or other credentials
-}));
+app.use(cors({ origin: '*', method: ['POST', 'GET'], credentials: true }));
+// app.use(cors({
+//   origin: ['https://rapid-quest-rho.vercel.app'],  // Allow only this origin
+//   methods: ['POST', 'GET'],
+//   credentials: true,  // If you need cookies or other credentials
+// }));
 
 app.use(express.json());
 
