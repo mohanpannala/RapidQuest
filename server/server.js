@@ -23,12 +23,23 @@ app.use(express.json());
 
 app.options('*', cors());  // Handle OPTIONS requests
 
-console.log(process.env.MONGO_URI);
+// MongoDB connection (optimized for serverless)
+let isConnected;
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected successfully"))
-  .catch((error) => console.error("Error connecting to MongoDB", error));
+const connectDB = async () => {
+    if (isConnected) return;
+    try {
+        await mongoose.connect(process.env.MONGO_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        isConnected = mongoose.connection.readyState;
+        console.log("MongoDB connected successfully");
+    } catch (error) {
+        console.error("Error connecting to MongoDB", error);
+    }
+};
+connectDB();
 
 // User schema and model
 const userSchema = new mongoose.Schema({
