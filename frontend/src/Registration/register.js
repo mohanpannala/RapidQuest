@@ -33,7 +33,7 @@ class Register extends Component {
 
 
         try {
-            const response = await fetch('https://rapid-quest-three.vercel.app/register', {
+            const response = await fetch('https://rapid-quest-api.vercel.app/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(user),
